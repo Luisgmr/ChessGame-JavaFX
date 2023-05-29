@@ -5,7 +5,10 @@ import com.luisgmr.chessgame.chess.ChessPiece;
 import com.luisgmr.chessgame.chess.ChessPosition;
 import com.luisgmr.chessgame.chess.Color;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class UserInterface {
