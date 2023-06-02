@@ -37,6 +37,22 @@ public class BoardController implements Initializable {
 
         sendPiecesOnBoard(chessMatch.getPieces());
 
+        board.setOnMouseClicked(e -> {
+
+            double cellWidth = board.getWidth() / 8;
+            double cellHeight = board.getHeight() / 8;
+            int clickedRow = (int) (e.getY() / cellHeight);
+            int clickedCol = (int) (e.getX() / cellWidth);
+
+            Position position = new Position(clickedRow, clickedCol);
+            if (chessMatch.getBoard().isPiece(position)) {
+                ChessPiece piece = (ChessPiece) chessMatch.getBoard().piece(position);
+                clearDisplay();
+                clearDisplay();
+                showPossibleMoves(piece);
+            }
+        });
+
     }
 
     private void sendCapturingDisplay(Position position) {
@@ -85,11 +101,6 @@ public class BoardController implements Initializable {
     private void sendPieceOnBoard(ChessPiece piece) {
         Position position = piece.getChessPosition().toPosition();
         ImageView icon = piece.getIcon();
-        icon.setOnMouseClicked(event -> {
-            clearDisplay();
-            clearDisplay();
-            showPossibleMoves(piece);
-        });
         board.add(piece.getIcon(), position.getColumn(), position.getRow());
     }
 
