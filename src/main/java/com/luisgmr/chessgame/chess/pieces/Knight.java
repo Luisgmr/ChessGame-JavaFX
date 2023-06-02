@@ -69,4 +69,10 @@ public class Knight extends ChessPiece {
 
         return mat;
     }
+
+    @Override
+    public String fileName() {
+        return getColor().getFileString() + "cavalo";
+    }
+
 }

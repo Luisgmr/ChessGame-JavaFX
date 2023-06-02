@@ -105,4 +105,10 @@ public class Queen extends ChessPiece {
         return mat;
     }
 
+    @Override
+    public String fileName() {
+        return getColor().getFileString() + "dama";
+    }
+
+
 }

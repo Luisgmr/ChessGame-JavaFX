@@ -65,4 +65,10 @@ public class Rook extends ChessPiece {
         return mat;
     }
 
+    @Override
+    public String fileName() {
+        return getColor().getFileString() + "torre";
+    }
+
+
 }

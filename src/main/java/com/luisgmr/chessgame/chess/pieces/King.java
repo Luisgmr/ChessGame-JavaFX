@@ -113,7 +113,12 @@ public class King extends ChessPiece {
                 }
             }
         }
-
         return mat;
     }
+
+    @Override
+    public String fileName() {
+        return getColor().getFileString() + "rei";
+    }
+
 }

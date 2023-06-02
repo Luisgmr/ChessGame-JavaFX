@@ -15,4 +15,13 @@ public enum Color {
             return UserInterface.ANSI_GREEN + "PRETAS";
         }
     }
+
+    public String getFileString() {
+        if (this == WHITE) {
+            return "brancas_";
+        } else {
+            return "pretas_";
+        }
+    }
+
 }

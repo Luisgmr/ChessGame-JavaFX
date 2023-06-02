@@ -89,4 +89,10 @@ public class Pawn extends ChessPiece {
     public String toString() {
         return "P";
     }
+
+    @Override
+    public String fileName() {
+        return getColor().getFileString() + "peao";
+    }
+
 }

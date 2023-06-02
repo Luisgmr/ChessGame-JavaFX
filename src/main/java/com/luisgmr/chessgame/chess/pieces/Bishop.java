@@ -65,4 +65,9 @@ public class Bishop extends ChessPiece {
         return mat;
     }
 
+    @Override
+    public String fileName() {
+        return getColor().getFileString() + "bispo";
+    }
+
 }
