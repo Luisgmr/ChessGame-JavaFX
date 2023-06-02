@@ -3,6 +3,7 @@ package com.luisgmr.chessgame.controller;
 import com.luisgmr.chessgame.boardgame.Position;
 import com.luisgmr.chessgame.chess.ChessMatch;
 import com.luisgmr.chessgame.chess.ChessPiece;
+import com.luisgmr.chessgame.chess.ChessPosition;
 import com.luisgmr.chessgame.chess.Color;
 import com.luisgmr.chessgame.chess.pieces.Queen;
 import javafx.fxml.FXML;
@@ -19,10 +20,12 @@ import java.net.URL;
 import java.util.*;
 
 public class BoardController implements Initializable {
-    
+
     @FXML GridPane board;
 
     ChessMatch chessMatch;
+
+    ChessPiece clickedPiece = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -38,21 +41,53 @@ public class BoardController implements Initializable {
         sendPiecesOnBoard(chessMatch.getPieces());
 
         board.setOnMouseClicked(e -> {
-
             double cellWidth = board.getWidth() / 8;
             double cellHeight = board.getHeight() / 8;
             int clickedRow = (int) (e.getY() / cellHeight);
             int clickedCol = (int) (e.getX() / cellWidth);
 
             Position position = new Position(clickedRow, clickedCol);
+            if (getObjectFromGridPane(board, clickedRow, clickedCol, "action") != null) {
+                if (getObjectFromGridPane(board, clickedRow, clickedCol, "action").getStyle().contains("-fx-opacity")) {
+                    // Moving display
+                    if (getObjectFromGridPane(board, clickedRow, clickedCol, "action").getStyle().contains("-fx-opacity: 30%")) {
+                        clearDisplay();
+                        ChessPiece capturedPiece = chessMatch.performChessMove(clickedPiece.getChessPosition(), ChessPosition.fromPosition(position));
+                        board.getChildren().remove(clickedPiece.getIcon());
+                        board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
+                        return;
+                    } else if (getObjectFromGridPane(board, clickedRow, clickedCol, "action").getStyle().contains("-fx-opacity: 25%")) {
+                        clearDisplay();
+                        ChessPiece capturedPiece = chessMatch.performChessMove(clickedPiece.getChessPosition(), ChessPosition.fromPosition(position));
+                        Position capturedPostion = new Position(clickedRow, clickedCol);
+                        board.getChildren().remove(getObjectFromGridPane(board, position.getRow(), position.getColumn(), "piece"));
+                        board.getChildren().remove(clickedPiece.getIcon());
+                        board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
+                        return;
+                    }
+                }
+            }
             if (chessMatch.getBoard().isPiece(position)) {
                 ChessPiece piece = (ChessPiece) chessMatch.getBoard().piece(position);
                 clearDisplay();
-                clearDisplay();
                 showPossibleMoves(piece);
+                clickedPiece = piece;
+                return;
             }
         });
+    }
 
+    private Node getObjectFromGridPane(GridPane gridPane, int row, int col, String description) {
+        for (int i = 0; i < gridPane.getChildren().size(); i++) {
+            Node cell = gridPane.getChildren().get(i);
+            int cellRow = GridPane.getRowIndex(cell);
+            int cellCol = GridPane.getColumnIndex(cell);
+
+            if (cellRow == row && cellCol == col && cell.getAccessibleRoleDescription().equals(description)) {
+                return cell;
+            }
+        }
+        return null;
     }
 
     private void sendCapturingDisplay(Position position) {
@@ -62,7 +97,8 @@ public class BoardController implements Initializable {
         ImageView image = new ImageView(imageUrl);
         image.setFitHeight(85);
         image.setFitWidth(85);
-        image.setStyle("-fx-opacity: 30%;");
+        image.setStyle("-fx-opacity: 25%;");
+        image.setAccessibleRoleDescription("action");
         board.add(image, position.getColumn(), position.getRow());
     }
 
@@ -74,10 +110,19 @@ public class BoardController implements Initializable {
         image.setFitHeight(30);
         image.setFitWidth(30);
         image.setStyle("-fx-opacity: 30%;");
+        image.setAccessibleRoleDescription("action");
         board.add(image, position.getColumn(), position.getRow());
     }
 
     private void clearDisplay() {
+        for (int i = 0; i < board.getChildren().size(); i++) {
+            Node child = board.getChildren().get(i);
+            if (child instanceof ImageView) {
+                if (child.getStyle().contains("-fx-opacity")) {
+                    board.getChildren().remove(child);
+                }
+            }
+        }
         for (int i = 0; i < board.getChildren().size(); i++) {
             Node child = board.getChildren().get(i);
             if (child instanceof ImageView) {
@@ -101,6 +146,7 @@ public class BoardController implements Initializable {
     private void sendPieceOnBoard(ChessPiece piece) {
         Position position = piece.getChessPosition().toPosition();
         ImageView icon = piece.getIcon();
+        icon.setAccessibleRoleDescription("piece");
         board.add(piece.getIcon(), position.getColumn(), position.getRow());
     }
 
