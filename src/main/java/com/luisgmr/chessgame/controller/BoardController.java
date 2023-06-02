@@ -1,5 +1,6 @@
 package com.luisgmr.chessgame.controller;
 
+import com.luisgmr.chessgame.boardgame.Piece;
 import com.luisgmr.chessgame.boardgame.Position;
 import com.luisgmr.chessgame.chess.ChessMatch;
 import com.luisgmr.chessgame.chess.ChessPiece;
@@ -55,6 +56,7 @@ public class BoardController implements Initializable {
                         ChessPiece capturedPiece = chessMatch.performChessMove(clickedPiece.getChessPosition(), ChessPosition.fromPosition(position));
                         board.getChildren().remove(clickedPiece.getIcon());
                         board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
+                        updateBoard();
                         return;
                     } else if (getObjectFromGridPane(board, clickedRow, clickedCol, "action").getStyle().contains("-fx-opacity: 25%")) {
                         clearDisplay();
@@ -63,6 +65,7 @@ public class BoardController implements Initializable {
                         board.getChildren().remove(getObjectFromGridPane(board, position.getRow(), position.getColumn(), "piece"));
                         board.getChildren().remove(clickedPiece.getIcon());
                         board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
+                        updateBoard();
                         return;
                     }
                 }
@@ -141,6 +144,17 @@ public class BoardController implements Initializable {
                 }
             }
         }
+    }
+
+    public void sendPiecesOnBoard(List<Piece> pieces) {
+        for (ChessPiece piece : pieces.stream().map(x -> (ChessPiece)x).toList()) {
+            sendPieceOnBoard(piece);
+        }
+    }
+
+    public void updateBoard() {
+        board.getChildren().clear();
+        sendPiecesOnBoard(chessMatch.getPiecesOnTheBoard());
     }
 
     private void sendPieceOnBoard(ChessPiece piece) {

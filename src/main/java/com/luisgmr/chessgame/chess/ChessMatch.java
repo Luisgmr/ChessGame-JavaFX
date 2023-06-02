@@ -4,6 +4,7 @@ import com.luisgmr.chessgame.boardgame.Board;
 import com.luisgmr.chessgame.boardgame.Piece;
 import com.luisgmr.chessgame.boardgame.Position;
 import com.luisgmr.chessgame.chess.pieces.*;
+import com.luisgmr.chessgame.controller.BoardController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -208,7 +209,7 @@ public class ChessMatch {
             capturedPieces.remove(capturedPiece);
             piecesOnTheBoard.add(capturedPiece);
         }
-
+        BoardController controller = null;
         // Roque pequeno
         if (p instanceof King && target.getColumn() == source.getColumn() + 2) {
             Position sourceT = new Position(source.getRow(), source.getColumn() + 3);
@@ -216,6 +217,8 @@ public class ChessMatch {
             ChessPiece rook = (ChessPiece) board.removePiece(targetT);
             board.placePiece(rook, sourceT);
             rook.decreaseMoveCount();
+            controller = new BoardController();
+            controller.updateBoard();
         }
 
         // Roque grande
@@ -225,6 +228,8 @@ public class ChessMatch {
             ChessPiece rook = (ChessPiece) board.removePiece(targetT);
             board.placePiece(rook, sourceT);
             rook.decreaseMoveCount();
+            controller = new BoardController();
+            controller.updateBoard();
         }
 
         // En passant
@@ -239,6 +244,8 @@ public class ChessMatch {
                 }
                 board.placePiece(pawn, pawnPosition);
             }
+            controller = new BoardController();
+            controller.updateBoard();
         }
 
     }
