@@ -16,23 +16,23 @@ import javafx.scene.layout.*;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class BoardController implements Initializable {
     
     @FXML GridPane board;
+
+    ChessMatch chessMatch;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String imagePath = "src/main/resources/com/luisgmr/chessgame/images/tabuleiro.png";
         File imageFile = new File(imagePath);
         String imageUrl = imageFile.toURI().toString();
         Image backgroundImage = new Image(imageUrl);
-        System.out.println(imageUrl);
         board.setStyle("-fx-background-image: url('" + backgroundImage.getUrl() + "');");
 
-        ChessMatch chessMatch = new ChessMatch();
+        chessMatch = new ChessMatch();
         List<ChessPiece> captured = new ArrayList<>();
 
         sendPiecesOnBoard(chessMatch.getPieces());
@@ -74,7 +74,7 @@ public class BoardController implements Initializable {
         image.setFitHeight(100);
         image.setFitWidth(100);
         image.setStyle("-fx-opacity: 50%;");
-        board.add(image, position.getRow(), position.getColumn());
+        board.add(image, position.getColumn(), position.getRow());
     }
 
     private void clearDisplay() {
@@ -105,15 +105,19 @@ public class BoardController implements Initializable {
     }
 
     public void showPossibleMoves(ChessPiece piece) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (piece.possibleMoves()[j][i]) {
-                    Position position = new Position(i, j);
-                    System.out.println(position);
-                    sendMovingDisplay(position);
+        for (int row = 0; row < chessMatch.getBoard().getColumns(); row++) {
+            for (int col = 0; col < chessMatch.getBoard().getRows(); col++) {
+                if (piece.possibleMoves()[row][col]) {
+                    Position position = new Position(row, col);
+                    if (chessMatch.getBoard().isPiece(position)) {
+                        sendCapturingDisplay(position);
+                    } else {
+                        sendMovingDisplay(position);
+                    }
                 }
             }
         }
+
     }
 
 }
