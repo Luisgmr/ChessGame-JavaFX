@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisgmr.chessgame.controller.BoardController">
    <children>
@@ -29,5 +37,114 @@
           <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="100.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
+      <Pane layoutX="80.0" layoutY="885.0" pickOnBounds="false" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #769656; -fx-background-radius: 10px;">
+         <children>
+            <ImageView fitHeight="55.0" fitWidth="55.0" layoutX="5.0" layoutY="5.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/brancas_peao.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="145.0" layoutY="892.0" prefHeight="51.0" prefWidth="735.0" style="-fx-background-color: #485936;">
+         <children>
+             <TextFlow layoutX="14.0" layoutY="9.0">
+                 <Text fill="WHITE" text="Jogando de ">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+               </Text>
+                 <Text fill="WHITE" style="-fx-font-weight: bold;" text="BRANCAS">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+               </Text>
+             </TextFlow>
+         </children>
+      </Pane>
+      <Pane layoutX="80.0" layoutY="10.0" pickOnBounds="false" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #EEEED2; -fx-background-radius: 10px;">
+         <children>
+            <ImageView fitHeight="55.0" fitWidth="55.0" layoutX="5.0" layoutY="5.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/pretas_peao.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="145.0" layoutY="17.0" prefHeight="51.0" prefWidth="735.0" style="-fx-background-color: #BBBBA0;">
+         <children>
+            <TextFlow layoutX="14.0" layoutY="9.0">
+               <children>
+                  <Text text="Jogando de ">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Text>
+                  <Text style="-fx-font-weight: bold;" text="PRETAS">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+         </children>
+      </Pane>
+      <VBox alignment="TOP_CENTER" layoutX="895.0" layoutY="17.0" prefHeight="425.0" prefWidth="370.0" spacing="10.0" style="-fx-background-color: #485936;">
+         <children>
+            <Label text="Peças capturadas" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <GridPane fx:id="whiteCaptured" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="895.0" layoutY="518.0" prefHeight="425.0" prefWidth="370.0" spacing="10.0" style="-fx-background-color: #BBBBA0;">
+         <children>
+            <Label text="Peças capturadas">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <GridPane fx:id="blackCaptured" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+      <Label fx:id="currentColor" alignment="CENTER" layoutX="905.0" layoutY="462.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="355.0" text="VEZ DAS XXXXXX JOGAREM" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

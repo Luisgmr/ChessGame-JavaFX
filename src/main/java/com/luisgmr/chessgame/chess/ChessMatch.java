@@ -263,7 +263,7 @@ public class ChessMatch {
         if (!board.isPiece(position)) {
             return "Não existe peça na posição de origem.";
         } else if (currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
-            return "A peça escolhida não é sua.";
+            return "É a vez das " + currentPlayer + " jogarem.";
         } else if (!board.piece(position).isThereAnyPossibleMove()) {
             return "Não existe movimentos possíveis para a peça escolhida.";
         } else {
@@ -368,16 +368,12 @@ public class ChessMatch {
     }
 
     public ChessPiece errorMove(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, message);
-        alert.setTitle("Ocorreu um erro ao executar o movimento.");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Xadrez");
+        alert.setHeaderText(message);
+        alert.setResizable(false);
         alert.show();
         return null;
-    }
-
-    public void errorMoveNeedsReturn(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, message);
-        alert.setTitle("Ocorreu um erro ao executar o movimento.");
-        alert.show();
     }
 
 }

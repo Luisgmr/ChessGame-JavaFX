@@ -10,9 +10,9 @@ public enum Color {
     @Override
     public String toString() {
         if (this == WHITE) {
-            return UserInterface.ANSI_RESET + "BRANCAS";
+            return "BRANCAS";
         } else {
-            return UserInterface.ANSI_GREEN + "PRETAS";
+            return "PRETAS";
         }
     }
 

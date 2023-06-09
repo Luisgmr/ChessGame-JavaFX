@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -23,6 +24,9 @@ import java.util.*;
 public class BoardController implements Initializable {
 
     @FXML GridPane board;
+    @FXML GridPane whiteCaptured;
+    @FXML GridPane blackCaptured;
+    @FXML Label currentColor;
 
     ChessMatch chessMatch;
 
@@ -37,6 +41,7 @@ public class BoardController implements Initializable {
         board.setStyle("-fx-background-image: url('" + backgroundImage.getUrl() + "');");
 
         chessMatch = new ChessMatch();
+        currentColor.setText("VEZ DAS " + chessMatch.getCurrentPlayer() + " JOGAREM");
         List<ChessPiece> captured = new ArrayList<>();
 
         sendPiecesOnBoard(chessMatch.getPieces());
@@ -155,6 +160,7 @@ public class BoardController implements Initializable {
     public void updateBoard() {
         board.getChildren().clear();
         sendPiecesOnBoard(chessMatch.getPiecesOnTheBoard());
+        currentColor.setText("VEZ DAS " + chessMatch.getCurrentPlayer() + " JOGAREM");
     }
 
     private void sendPieceOnBoard(ChessPiece piece) {
