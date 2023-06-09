@@ -27,6 +27,11 @@ public class BoardController implements Initializable {
     @FXML GridPane whiteCaptured;
     @FXML GridPane blackCaptured;
     @FXML Label currentColor;
+    @FXML Label whiteLastMove;
+    @FXML Label blackLastMove;
+
+    boolean blackCapturedLayout[][] = new boolean[4][4];
+    boolean whiteCapturedLayout[][] = new boolean[4][4];
 
     ChessMatch chessMatch;
 
@@ -56,18 +61,53 @@ public class BoardController implements Initializable {
             if (getObjectFromGridPane(board, clickedRow, clickedCol, "action") != null) {
                 if (getObjectFromGridPane(board, clickedRow, clickedCol, "action").getStyle().contains("-fx-opacity")) {
                     // Moving display
+                    ChessPosition sourcePosition = clickedPiece.getChessPosition();
                     if (getObjectFromGridPane(board, clickedRow, clickedCol, "action").getStyle().contains("-fx-opacity: 30%")) {
                         clearDisplay();
-                        ChessPiece capturedPiece = chessMatch.performChessMove(clickedPiece.getChessPosition(), ChessPosition.fromPosition(position));
+                        ChessPiece capturedPiece = chessMatch.performChessMove(sourcePosition, ChessPosition.fromPosition(position));
                         board.getChildren().remove(clickedPiece.getIcon());
                         board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
                         updateBoard();
                         return;
                     } else if (getObjectFromGridPane(board, clickedRow, clickedCol, "action").getStyle().contains("-fx-opacity: 25%")) {
                         clearDisplay();
-                        ChessPiece capturedPiece = chessMatch.performChessMove(clickedPiece.getChessPosition(), ChessPosition.fromPosition(position));
+                        ChessPiece capturedPiece = chessMatch.performChessMove(sourcePosition, ChessPosition.fromPosition(position));
+                        ImageView pieceNode = (ImageView) getObjectFromGridPane(board, position.getRow(), position.getColumn(), "piece");
+                        pieceNode.setFitWidth(80);
+                        pieceNode.setFitHeight(80);
+                        board.getChildren().remove(pieceNode);
+                        if (capturedPiece.getColor() == Color.WHITE) {
+                            boolean pieceAdded = false;
+                            for (int column = 0; column < 4; column++) {
+                                for (int row = 0; row < 4; row++) {
+                                    if (!whiteCapturedLayout[column][row]) {
+                                        whiteCaptured.add(pieceNode, row, column);
+                                        whiteCapturedLayout[column][row] = true;
+                                        pieceAdded = true;
+                                        break;
+                                    }
+                                }
+                                if (pieceAdded) {
+                                    break;
+                                }
+                            }
+                        } else if (capturedPiece.getColor() == Color.BLACK) {
+                            boolean pieceAdded = false;
+                            for (int column = 0; column < 4; column++) {
+                                for (int row = 0; row < 4; row++) {
+                                    if (!blackCapturedLayout[column][row]) {
+                                        blackCaptured.add(pieceNode, row, column);
+                                        blackCapturedLayout[column][row] = true;
+                                        pieceAdded = true;
+                                        break;
+                                    }
+                                }
+                                if (pieceAdded) {
+                                    break;
+                                }
+                            }
+                        }
                         Position capturedPostion = new Position(clickedRow, clickedCol);
-                        board.getChildren().remove(getObjectFromGridPane(board, position.getRow(), position.getColumn(), "piece"));
                         board.getChildren().remove(clickedPiece.getIcon());
                         board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
                         updateBoard();
@@ -171,19 +211,36 @@ public class BoardController implements Initializable {
     }
 
     public void showPossibleMoves(ChessPiece piece) {
-        for (int row = 0; row < chessMatch.getBoard().getColumns(); row++) {
-            for (int col = 0; col < chessMatch.getBoard().getRows(); col++) {
-                if (piece.possibleMoves()[row][col]) {
-                    Position position = new Position(row, col);
-                    if (chessMatch.getBoard().isPiece(position)) {
-                        sendCapturingDisplay(position);
-                    } else {
-                        sendMovingDisplay(position);
+        if (chessMatch.getCurrentPlayer() == piece.getColor()) {
+            for (int row = 0; row < chessMatch.getBoard().getColumns(); row++) {
+                for (int col = 0; col < chessMatch.getBoard().getRows(); col++) {
+                    if (piece.possibleMoves()[row][col]) {
+                        Position position = new Position(row, col);
+                        if (chessMatch.getBoard().isPiece(position)) {
+                            sendCapturingDisplay(position);
+                        } else {
+                            sendMovingDisplay(position);
+                        }
                     }
                 }
             }
         }
-
     }
+
+    public boolean containsImageView(GridPane gridPane, int rowIndex, int columnIndex) {
+        boolean containsImageView = false;
+
+        for (Node node : gridPane.getChildren()) {
+            Integer nodeRowIndex = GridPane.getRowIndex(node);
+            Integer nodeColumnIndex = GridPane.getColumnIndex(node);
+
+            if (nodeRowIndex != null && nodeRowIndex == rowIndex && nodeColumnIndex != null && nodeColumnIndex == columnIndex && node instanceof ImageView) {
+                containsImageView = true;
+                break;
+            }
+        }
+        return containsImageView;
+    }
+
 
 }
