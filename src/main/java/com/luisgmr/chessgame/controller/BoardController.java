@@ -68,6 +68,11 @@ public class BoardController implements Initializable {
                         board.getChildren().remove(clickedPiece.getIcon());
                         board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
                         updateBoard();
+                        if (clickedPiece.getColor() == Color.WHITE) {
+                            whiteLastMove.setText(clickedPiece + " de " + sourcePosition + " em " + ChessPosition.fromPosition(position));
+                        } else {
+                            blackLastMove.setText(clickedPiece + " de " + sourcePosition + " em " + ChessPosition.fromPosition(position));
+                        }
                         return;
                     } else if (getObjectFromGridPane(board, clickedRow, clickedCol, "action").getStyle().contains("-fx-opacity: 25%")) {
                         clearDisplay();
@@ -111,6 +116,11 @@ public class BoardController implements Initializable {
                         board.getChildren().remove(clickedPiece.getIcon());
                         board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
                         updateBoard();
+                        if (clickedPiece.getColor() == Color.WHITE) {
+                            whiteLastMove.setText(clickedPiece + " de " + sourcePosition + " capturando " + capturedPiece.toString().toLowerCase() + " de " + ChessPosition.fromPosition(position));
+                        } else {
+                            blackLastMove.setText(clickedPiece + " de " + sourcePosition + " capturando " + capturedPiece.toString().toLowerCase() + " de " + ChessPosition.fromPosition(position));
+                        }
                         return;
                     }
                 }

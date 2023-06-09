@@ -61,6 +61,11 @@
                   </font>
                </Text>
              </TextFlow>
+            <Label fx:id="whiteLastMove" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="451.0" layoutY="13.0" prefHeight="26.0" prefWidth="270.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane layoutX="80.0" layoutY="10.0" pickOnBounds="false" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #EEEED2; -fx-background-radius: 10px;">
@@ -88,6 +93,11 @@
                   </Text>
                </children>
             </TextFlow>
+            <Label fx:id="blackLastMove" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="449.0" layoutY="12.0" prefHeight="26.0" prefWidth="270.0" textAlignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <VBox alignment="TOP_CENTER" layoutX="895.0" layoutY="17.0" prefHeight="425.0" prefWidth="370.0" spacing="10.0" style="-fx-background-color: #485936; -fx-background-radius: 10;">

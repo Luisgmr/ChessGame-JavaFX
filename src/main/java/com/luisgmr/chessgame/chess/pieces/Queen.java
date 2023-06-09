@@ -13,7 +13,7 @@ public class Queen extends ChessPiece {
 
     @Override
     public String toString() {
-        return "D";
+        return "Dama";
     }
 
     @Override
