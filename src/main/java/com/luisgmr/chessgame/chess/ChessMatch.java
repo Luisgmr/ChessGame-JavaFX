@@ -5,6 +5,8 @@ import com.luisgmr.chessgame.boardgame.Piece;
 import com.luisgmr.chessgame.boardgame.Position;
 import com.luisgmr.chessgame.chess.pieces.*;
 import com.luisgmr.chessgame.controller.BoardController;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,18 +79,25 @@ public class ChessMatch {
     }
 
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
-        if (check && (!(((ChessPiece)board.piece(sourcePosition.toPosition())) instanceof King))) {
-            throw new ChessException("Você está em xeque!");
-        }
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
-        validateSourcePosition(source);
+        String sourceIsValid = validateSourcePosition(source);
+        if (!sourceIsValid.equals("valido")) {
+            return errorMove(sourceIsValid);
+        }
         validateTargetPosition(source, target);
+        // fazer o movimento
         Piece capturedPiece = makeMove(source, target);
 
         if (testCheck(currentPlayer)) {
             undoMove(source, target, capturedPiece);
-            throw new ChessException("Você não pode se colocar em xeque.");
+            if (check) {
+                return errorMove("Você está em cheque.");
+                //throw new ChessException("Você está em cheque.");
+            } else {
+                return errorMove("Você não pode se colocar em cheque.");
+                //throw new ChessException("Você não pode se colocar em xeque.");
+            }
         }
 
         ChessPiece movedPiece = (ChessPiece) board.piece(target);
@@ -250,15 +259,15 @@ public class ChessMatch {
 
     }
 
-    private void validateSourcePosition(Position position) {
+    private String validateSourcePosition(Position position) {
         if (!board.isPiece(position)) {
-            throw new ChessException("Não existe peça na posição de origem.");
-        }
-        if (currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
-            throw new ChessException("A peça escolhida não é sua.");
-        }
-        if (!board.piece(position).isThereAnyPossibleMove()) {
-            throw new ChessException("Não existe movimentos possíveis para a peça escolhida.");
+            return "Não existe peça na posição de origem.";
+        } else if (currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
+            return "A peça escolhida não é sua.";
+        } else if (!board.piece(position).isThereAnyPossibleMove()) {
+            return "Não existe movimentos possíveis para a peça escolhida.";
+        } else {
+            return "valido";
         }
     }
 
@@ -356,6 +365,19 @@ public class ChessMatch {
             placeNewPiece(columnPawn, 7, new Pawn(board, Color.BLACK, this));
             columnPawn++;
         }
+    }
+
+    public ChessPiece errorMove(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, message);
+        alert.setTitle("Ocorreu um erro ao executar o movimento.");
+        alert.show();
+        return null;
+    }
+
+    public void errorMoveNeedsReturn(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, message);
+        alert.setTitle("Ocorreu um erro ao executar o movimento.");
+        alert.show();
     }
 
 }
