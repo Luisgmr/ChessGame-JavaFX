@@ -22,6 +22,8 @@ public class ChessMatch {
     private ChessPiece enPassantVulnerable;
     private ChessPiece promoted;
 
+    public ChessPiece enPassantCaptured;
+
     private List<Piece> piecesOnTheBoard = new ArrayList<>();
     private List<Piece> capturedPieces = new ArrayList<>();
 
@@ -203,6 +205,7 @@ public class ChessMatch {
                     pawnPosition = new Position(target.getRow() - 1, target.getColumn());
                 }
                 capturedPiece = board.removePiece(pawnPosition);
+                enPassantCaptured = (ChessPiece) capturedPiece;
                 capturedPieces.add(capturedPiece);
                 piecesOnTheBoard.remove(capturedPiece);
             }

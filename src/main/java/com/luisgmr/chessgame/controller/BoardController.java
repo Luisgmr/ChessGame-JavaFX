@@ -71,6 +71,13 @@ public class BoardController implements Initializable {
                         ChessPiece capturedPiece = chessMatch.performChessMove(sourcePosition, ChessPosition.fromPosition(position));
                         board.getChildren().remove(clickedPiece.getIcon());
                         board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
+                        if (chessMatch.enPassantCaptured != null) {
+                            ImageView pieceNode = chessMatch.enPassantCaptured.getIcon();
+                            pieceNode.setFitHeight(80);
+                            pieceNode.setFitWidth(80);
+                            addCapturedInterface(chessMatch.enPassantCaptured, pieceNode);
+                            chessMatch.enPassantCaptured = null;
+                        }
                         updateBoard();
                         if (clickedPiece.getColor() == Color.WHITE) {
                             whiteLastMove.setText(clickedPiece + " de " + sourcePosition + " em " + ChessPosition.fromPosition(position));
@@ -84,38 +91,7 @@ public class BoardController implements Initializable {
                         ImageView pieceNode = (ImageView) getObjectFromGridPane(board, position.getRow(), position.getColumn(), "piece");
                         pieceNode.setFitWidth(80);
                         pieceNode.setFitHeight(80);
-                        board.getChildren().remove(pieceNode);
-                        if (capturedPiece.getColor() == Color.WHITE) {
-                            boolean pieceAdded = false;
-                            for (int column = 0; column < 4; column++) {
-                                for (int row = 0; row < 4; row++) {
-                                    if (!whiteCapturedLayout[column][row]) {
-                                        whiteCaptured.add(pieceNode, row, column);
-                                        whiteCapturedLayout[column][row] = true;
-                                        pieceAdded = true;
-                                        break;
-                                    }
-                                }
-                                if (pieceAdded) {
-                                    break;
-                                }
-                            }
-                        } else if (capturedPiece.getColor() == Color.BLACK) {
-                            boolean pieceAdded = false;
-                            for (int column = 0; column < 4; column++) {
-                                for (int row = 0; row < 4; row++) {
-                                    if (!blackCapturedLayout[column][row]) {
-                                        blackCaptured.add(pieceNode, row, column);
-                                        blackCapturedLayout[column][row] = true;
-                                        pieceAdded = true;
-                                        break;
-                                    }
-                                }
-                                if (pieceAdded) {
-                                    break;
-                                }
-                            }
-                        }
+                        addCapturedInterface(capturedPiece, pieceNode);
                         Position capturedPostion = new Position(clickedRow, clickedCol);
                         board.getChildren().remove(clickedPiece.getIcon());
                         board.add(clickedPiece.getIcon(), clickedCol, clickedRow);
@@ -256,5 +232,38 @@ public class BoardController implements Initializable {
         return containsImageView;
     }
 
+    public void addCapturedInterface(ChessPiece capturedPiece, Node pieceNode) {
+        if (capturedPiece.getColor() == Color.WHITE) {
+            boolean pieceAdded = false;
+            for (int column = 0; column < 4; column++) {
+                for (int row = 0; row < 4; row++) {
+                    if (!whiteCapturedLayout[column][row]) {
+                        whiteCaptured.add(pieceNode, row, column);
+                        whiteCapturedLayout[column][row] = true;
+                        pieceAdded = true;
+                        break;
+                    }
+                }
+                if (pieceAdded) {
+                    break;
+                }
+            }
+        } else if (capturedPiece.getColor() == Color.BLACK) {
+            boolean pieceAdded = false;
+            for (int column = 0; column < 4; column++) {
+                for (int row = 0; row < 4; row++) {
+                    if (!blackCapturedLayout[column][row]) {
+                        blackCaptured.add(pieceNode, row, column);
+                        blackCapturedLayout[column][row] = true;
+                        pieceAdded = true;
+                        break;
+                    }
+                }
+                if (pieceAdded) {
+                    break;
+                }
+            }
+        }
+    }
 
 }
