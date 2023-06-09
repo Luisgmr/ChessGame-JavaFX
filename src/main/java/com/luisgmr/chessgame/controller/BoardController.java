@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -52,6 +53,9 @@ public class BoardController implements Initializable {
         sendPiecesOnBoard(chessMatch.getPieces());
 
         board.setOnMouseClicked(e -> {
+            if (chessMatch.isCheckMate()) {
+                return;
+            }
             double cellWidth = board.getWidth() / 8;
             double cellHeight = board.getHeight() / 8;
             int clickedRow = (int) (e.getY() / cellHeight);

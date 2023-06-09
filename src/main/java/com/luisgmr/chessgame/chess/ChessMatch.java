@@ -113,10 +113,13 @@ public class ChessMatch {
 
         check = (testCheck(opponent(currentPlayer))) ? true : false;
 
-        if (testCheckMate(opponent(currentPlayer))) {
+        nextTurn();
+        if (testCheckMate((currentPlayer))) {
             checkMate = true;
-        } else {
-            nextTurn();
+            Alert mateAlert = new Alert(Alert.AlertType.INFORMATION);
+            mateAlert.setHeaderText("CHEQUE-MATE!");
+            mateAlert.setContentText("As " + opponent(currentPlayer) + " venceram!");
+            mateAlert.show();
         }
 
         // En passant
@@ -226,8 +229,6 @@ public class ChessMatch {
             ChessPiece rook = (ChessPiece) board.removePiece(targetT);
             board.placePiece(rook, sourceT);
             rook.decreaseMoveCount();
-            controller = new BoardController();
-            controller.updateBoard();
         }
 
         // Roque grande
@@ -237,8 +238,6 @@ public class ChessMatch {
             ChessPiece rook = (ChessPiece) board.removePiece(targetT);
             board.placePiece(rook, sourceT);
             rook.decreaseMoveCount();
-            controller = new BoardController();
-            controller.updateBoard();
         }
 
         // En passant
@@ -253,8 +252,6 @@ public class ChessMatch {
                 }
                 board.placePiece(pawn, pawnPosition);
             }
-            controller = new BoardController();
-            controller.updateBoard();
         }
 
     }
