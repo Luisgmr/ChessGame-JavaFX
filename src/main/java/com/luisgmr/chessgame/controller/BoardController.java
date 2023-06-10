@@ -107,10 +107,16 @@ public class BoardController implements Initializable {
             }
             if (chessMatch.getBoard().isPiece(position)) {
                 ChessPiece piece = (ChessPiece) chessMatch.getBoard().piece(position);
+                if (chessMatch.opponent(chessMatch.getCurrentPlayer()) != piece.getColor()) {
+                    clearDisplay();
+                    showPossibleMoves(piece);
+                    clickedPiece = piece;
+                    return;
+                } else {
+                    clearDisplay();
+                }
+            } else {
                 clearDisplay();
-                showPossibleMoves(piece);
-                clickedPiece = piece;
-                return;
             }
         });
     }
@@ -153,19 +159,14 @@ public class BoardController implements Initializable {
     }
 
     private void clearDisplay() {
-        for (int i = 0; i < board.getChildren().size(); i++) {
-            Node child = board.getChildren().get(i);
-            if (child instanceof ImageView) {
-                if (child.getStyle().contains("-fx-opacity")) {
-                    board.getChildren().remove(child);
-                }
-            }
-        }
-        for (int i = 0; i < board.getChildren().size(); i++) {
-            Node child = board.getChildren().get(i);
-            if (child instanceof ImageView) {
-                if (child.getStyle().contains("-fx-opacity")) {
-                    board.getChildren().remove(child);
+        // Executar a limpa 3 vezes (em algumas limpas, displays não são removidos corretamente)
+        for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < board.getChildren().size(); i++) {
+                Node child = board.getChildren().get(i);
+                if (child instanceof ImageView) {
+                    if (child.getStyle().contains("-fx-opacity")) {
+                        board.getChildren().remove(child);
+                    }
                 }
             }
         }
