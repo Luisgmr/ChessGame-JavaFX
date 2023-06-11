@@ -14,7 +14,10 @@
 
 Este é um jogo de xadrez totalmente funcional implementado em Java 17 e JavaFX 17. O projeto foi desenvolvido como parte de uma ideia para praticar conceitos de programação orientada a objetos e interfaces gráficas.
 
-![imagem](https://github.com/Luisgmr/ChessGame-JavaFX/assets/41022083/e8ea048e-9ab9-47b4-88da-8cd55870819a)
+| Início | Meio-jogo |
+|---|---|
+| ![img1](https://github.com/Luisgmr/ChessGame-JavaFX/assets/41022083/b20efda9-ffc8-4f07-ab64-63aea3655635) | ![img2](https://github.com/Luisgmr/ChessGame-JavaFX/assets/41022083/ae789d4b-ba9f-432b-8cd6-8ce178cc9c4a) |
+
 
 ## 🎮 Como jogar
 1. Clone este repositório: `git clone https://github.com/Luisgmr/ChessGame-JavaFX.git`<br>
