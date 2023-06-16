@@ -38,7 +38,7 @@
           <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="100.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Pane layoutX="80.0" layoutY="885.0" pickOnBounds="false" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #769656; -fx-background-radius: 10px;">
+      <Pane layoutX="80.0" layoutY="885.0" pickOnBounds="false" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #6B8AB0; -fx-background-radius: 10px;">
          <children>
             <ImageView fitHeight="55.0" fitWidth="55.0" layoutX="5.0" layoutY="5.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -47,7 +47,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="145.0" layoutY="892.0" prefHeight="51.0" prefWidth="735.0" style="-fx-background-color: #485936;">
+      <Pane layoutX="145.0" layoutY="892.0" prefHeight="51.0" prefWidth="735.0" style="-fx-background-color: #3C526E;">
          <children>
              <TextFlow layoutX="14.0" layoutY="9.0">
                  <Text fill="WHITE" text="Jogando de ">
@@ -68,7 +68,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="80.0" layoutY="10.0" pickOnBounds="false" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #EEEED2; -fx-background-radius: 10px;">
+      <Pane layoutX="80.0" layoutY="10.0" pickOnBounds="false" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #dcedff; -fx-background-radius: 10px;">
          <children>
             <ImageView fitHeight="55.0" fitWidth="55.0" layoutX="5.0" layoutY="5.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -77,7 +77,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="145.0" layoutY="17.0" prefHeight="51.0" prefWidth="735.0" style="-fx-background-color: #BBBBA0;">
+      <Pane layoutX="145.0" layoutY="17.0" prefHeight="51.0" prefWidth="735.0" style="-fx-background-color: #87A1BC;">
          <children>
             <TextFlow layoutX="14.0" layoutY="9.0">
                <children>
@@ -100,7 +100,7 @@
             </Label>
          </children>
       </Pane>
-      <VBox alignment="TOP_CENTER" layoutX="895.0" layoutY="17.0" prefHeight="425.0" prefWidth="370.0" spacing="10.0" style="-fx-background-color: #485936; -fx-background-radius: 10;">
+      <VBox alignment="TOP_CENTER" layoutX="895.0" layoutY="17.0" prefHeight="425.0" prefWidth="370.0" spacing="10.0" style="-fx-background-color: #3C526E; -fx-background-radius: 10;">
          <children>
             <Label text="Peças capturadas" textFill="WHITE">
                <font>
@@ -126,7 +126,7 @@
             <Insets top="10.0" />
          </padding>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="895.0" layoutY="518.0" prefHeight="425.0" prefWidth="370.0" spacing="10.0" style="-fx-background-color: #BBBBA0; -fx-background-radius: 10;">
+      <VBox alignment="TOP_CENTER" layoutX="895.0" layoutY="518.0" prefHeight="425.0" prefWidth="370.0" spacing="10.0" style="-fx-background-color: #87A1BC; -fx-background-radius: 10;">
          <children>
             <Label text="Peças capturadas">
                <font>
